@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "74454331-CBC5-44AD-B3CE-D8819E17A023",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:VocabularyFlashCards.xcodeproj",
+        "identifier" : "C20218182D0474A3007A2330",
+        "name" : "VocabularyFlashCardsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
