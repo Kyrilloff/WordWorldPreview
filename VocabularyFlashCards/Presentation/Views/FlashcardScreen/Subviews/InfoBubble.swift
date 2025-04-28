@@ -9,6 +9,8 @@ import SharedComponents
 import SwiftUI
 
 struct InfoBubble: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let text: String
     
     var body: some View {
@@ -17,7 +19,7 @@ struct InfoBubble: View {
                 .padding()
                 .fontWeight(.medium)
         }
-        .background(Color.appBackground)
+        .background(colorScheme == .light ? Color.appBackground : Color.appBackgroundDark)
         .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard))
     }
 }
