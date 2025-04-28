@@ -15,7 +15,6 @@ final class FlashcardScreenViewModel {
     var showSettings = false
     var currentSection: VocabularySection = .all
     var invertAll = false
-    var invertAllInverted = true
     
     var randomFlashcards: [FlashcardContent] = []
     var randomRepeatableFlashcards: [FlashcardContent] = []

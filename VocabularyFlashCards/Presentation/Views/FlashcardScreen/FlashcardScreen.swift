@@ -67,8 +67,12 @@ struct FlashcardScreen: View {
         .onChange(of: flashcardState.repetition) { _, _ in
             vm.generateInitialCards(state: flashcardState)
         }
-        .onChange(of: vm.currentSection) { _, _ in
+        .onChange(of: vm.currentSection) { _, newValue in
             vm.generateInitialCards(state: flashcardState)
+            
+            if newValue == .all {
+                vm.invertAll = false
+            }
         }
     }
 }
