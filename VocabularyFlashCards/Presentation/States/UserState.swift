@@ -1,5 +1,5 @@
 //
-//  BaseScreen.swift
+//  UserState.swift
 //  VocabularyFlashCards
 //
 //  Created by Konrad Schmid on 07.12.24.
@@ -22,15 +22,11 @@ final class UserState {
     
     private(set) var status: AuthStatus = .loading
     
-    @ObservationIgnored
     private var authHandle: AuthStateDidChangeListenerHandle?
     
-    @MainActor
     var currentStatus: AuthStatus {
         get { status }
-        set {
-            DispatchQueue.main.async { self.status = newValue }
-        }
+        set { self.status = newValue }
     }
 
     var currentUser: User? {
@@ -65,12 +61,10 @@ final class UserState {
         authHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self else { return }
             
-            DispatchQueue.main.async {
-                if let user {
-                    self.currentStatus = .authenticated(User(from: user))
-                } else {
-                    self.currentStatus = .unauthenticated
-                }
+            if let user {
+                self.currentStatus = .authenticated(User(from: user))
+            } else {
+                self.currentStatus = .unauthenticated
             }
         }
     }
@@ -82,19 +76,16 @@ final class UserState {
         }
     }
 
-    @MainActor
     func signUp(email: String, password: String) async throws {
         let user = try await repo.createUser(email: email, password: password)
         currentStatus = .authenticated(user)
     }
 
-    @MainActor
     func login(email: String, password: String) async throws {
         let user = try await repo.login(email: email, password: password)
         currentStatus = .authenticated(user)
     }
 
-    @MainActor
     func logout() async throws {
         try await repo.logout()
         removeAuthListener()
